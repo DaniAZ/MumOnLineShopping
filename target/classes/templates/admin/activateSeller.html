@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+<div th:replace="common/header :: navbar" />
+
+<div class="container">
+
+
+<!----Nav Framgemnt and Home Page--->
+
+<div class="container">
+
+    <h3>Inactive Seller Accounts</h3>
+    <hr>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>S.No</th>
+            <th>Company</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Enabled</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="inactiveSeller : ${sellerCredentials}">
+
+            <td th:text="${inactiveSeller.serialNumber}" />
+            <td th:text="${inactiveSeller.companyName}" />
+            <td th:text="${inactiveSeller.companyAddress}" />
+            <td th:text="${inactiveSeller.email}" />
+            <td th:text="${inactiveSeller.accountEnabled}" />
+            <!--<td th:text="${inactiveSeller.enabled}" />-->
+
+            <!-- Add update button/link -->
+            <td>
+                <a th:href="@{/admin/activate/seller(sellerId=${inactiveSeller.credentialId})}"  class="btn btn-info btn-sm">
+                    Activate
+                </a>
+
+<!--                <label class="switch">-->
+<!--                    <input type="checkbox" checked>-->
+<!--                    <span class="slider round"></span>-->
+<!--                </label>-->
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</div>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header"/>
+
+<body>
+<div th:replace="common/header :: navbar"/>
+<div class="container">
+    <div class="col-lg-4" id="Divsellers" style="margin:0 auto;
+    width:980px">
+
+        <div class="card Divseller" style="width: 18rem;float: left;"  th:each="seller:${sellers}">
+            <img src="" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${seller.name}">Brand Name</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <button th:id="${seller.id}" type="button" class="btn btn-primary btn_brand">Subscribe</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+</div>
+<div th:replace="common/header :: footer"/>
+
+<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

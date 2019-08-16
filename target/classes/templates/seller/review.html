@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+<div th:replace="common/header :: navbar" />
+
+<div class="container">
+
+<div class="container">
+
+    <div class="row">
+        <div id="title">
+            <h1>Reviews By Buyers</h1>
+        </div>
+
+        <table id="comments" class="table table-striped">
+            <thead>
+            <tr>
+                <th width="10%">Description</th>
+                <th width="60%">Product Id</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="result" >
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script data-th-src="@{/js/seller.js}"></script>
+
+</body>
+
+</html>

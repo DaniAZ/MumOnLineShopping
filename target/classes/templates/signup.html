@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header :: common-header" >
+    <meta charset="UTF-8">
+    <title>SignUp Form</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link th:href="@{/css/signup.css}" rel="stylesheet">
+
+</head>
+<body>
+
+
+<div  th:replace="common/header :: navbar" />
+<div class="container register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+<!--            <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>-->
+            <img src="../image/onlineshoppinglogo.gif" />
+            <h3>Online Shopping</h3>
+            <p>Everything you need to order is a click away!</p>
+            <form action="/login" method="get">
+                <input type="submit" name="" value="Login"/><br/>
+            </form>
+        </div>
+        <div class="col-md-9 register-right">
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Buyer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Seller</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">Signup as a Buyer</h3>
+                    <form action="/buyer/signup" method="post" th:object="${buyer}">
+                    <div class="row register-form">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="First Name *" th:field="*{firstName}" />
+                                <span th:if="${#fields.hasErrors('firstName')}" th:errors ="*{firstName}" class="alert alert-danger"/>
+
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Last Name *" th:field="*{lastName}" />
+                                <span th:if="${#fields.hasErrors('lastName')}" th:errors ="*{lastName}" class="alert alert-danger"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="txtNewPassword" class="form-control" placeholder="Password *" th:field="*{credential.password}" />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="txtConfirmPassword" class="form-control"  placeholder="Confirm Password *" onChange="checkBuyerPasswordMatch();" value="" />
+                                <span id="spanCheckPasswordMatch"></span>
+                            </div>
+<!--                            <div class="form-group">-->
+<!--                                <div class="maxl">-->
+<!--                                    <label class="radio inline">-->
+<!--                                        <input type="radio" name="gender" value="male" checked>-->
+<!--                                        <span> Male </span>-->
+<!--                                    </label>-->
+<!--                                    <label class="radio inline">-->
+<!--                                        <input type="radio" name="gender" value="female">-->
+<!--                                        <span>Female </span>-->
+<!--                                    </label>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Your Email *" th:field="*{credential.email}" />
+                                <span th:if="${#fields.hasErrors('credential.email')}" th:errors ="*{credential.email}" class="alert alert-danger"/>
+                            </div>
+<!--                            <div class="form-group">-->
+<!--                                <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />-->
+<!--                            </div>-->
+                            <div class="form-group">
+                                <select class="form-control" th:field="*{gender}">
+                                    <option value="" class="hidden"  selected disabled>Gender</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Male">Male</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" th:field="*{securityQuestion}">
+                                    <option value="" class="hidden"  selected disabled>Please select your Sequrity Question</option>
+                                    <option value="What is your birth city?">What is your birth city?</option>
+                                    <option value="Who is your favourite professor?">Who is your favourite professor</option>
+                                    <option value="What is your nick name?">What is your nick name?</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter Your Answer *" th:field="*{securityAnswer}" />
+                            </div>
+                            <input type="submit" class="btnRegister"  value="Register"/>
+                        </div>
+                        <span class="text-success" th:text="${success}"></span>
+                    </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <h3  class="register-heading">Signup as a Seller</h3>
+                    <form action="/seller/signup" method="post" th:object="${seller}">
+                    <div class="row register-form">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Company Name *" th:field="*{name}" />
+                                <span th:if="${#fields.hasErrors('name')}" th:errors ="*{name}" class="alert alert-danger"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email *" th:field="*{credential.email}" />
+                                <span th:if="${#fields.hasErrors('credential.email')}" th:errors ="*{credential.email}" class="alert alert-danger"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="txtNewPasswordSeller" class="form-control" placeholder="Password *" th:field="*{credential.password}" />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="txtConfirmPasswordSeller" class="form-control" placeholder="Confirm Password *" onChange="checkSellerPasswordMatch();" value="" />
+                                <span id="spanCheckPasswordMatchSeller"></span>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" th:field="*{securityQuestion}">
+                                    <option value="" class="hidden"  selected disabled>Please select your Sequrity Question</option>
+                                    <option value="What is your Birthdate?">What is your Birthdate?</option>
+                                    <option value="What is Your old Phone Number?">What is Your old Phone Number</option>
+                                    <option value="What is your Pet Name?">What is your Pet Name?</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Street *" th:field="*{address.street}" />
+                                <span th:if="${#fields.hasErrors('address.street')}" th:errors ="*{address.street}" class="alert alert-danger"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="City *" th:field="*{address.city}" />
+                                <span th:if="${#fields.hasErrors('address.city')}" th:errors ="*{address.city}" class="alert alert-danger"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="State *" th:field="*{address.state}" />
+                                <span th:if="${#fields.hasErrors('address.state')}" th:errors ="*{address.state}" class="alert alert-danger"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Zip Code *" th:field="*{address.zipcode}" />
+                                <span th:if="${#fields.hasErrors('address.zipcode')}" th:errors ="*{address.zipcode}" class="alert alert-danger"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Answer *" th:field="*{securityAnswer}" />
+                                <span th:if="${#fields.hasErrors('securityAnswer')}" th:errors ="*{securityAnswer}" class="alert alert-danger"/>
+                            </div>
+                            <input type="submit" class="btnRegister"  value="Register"/>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>-->
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script th:src="@{/js/signup.js}"></script>
+
+<div th:replace="common/header :: footer"/>
+
+<div th:replace="common/header :: body-bottom-scripts" />
+
+</body>
+</html>

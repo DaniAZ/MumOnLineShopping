@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h1 th:text="${'This is reciept: ' + report.name}">Report name</h1>
+<div th:text="${report.description}"></div>
+<table>
+    <tr>
+        <th>Quantity</th>
+        <th>Total Price</th>
+        <th>Price</th>
+        <th>Product name</th>
+    </tr>
+    <tr th:each="row : ${report.table}">
+        <td th:text="${row.quantity}">ID</td>
+        <td th:text="${row.totalprice}">name</td>
+        <td th:text="${row.price}">value</td>
+        <td th:text="${row.productname}">description</td>
+    </tr>
+</table>
+</body>
+</html>

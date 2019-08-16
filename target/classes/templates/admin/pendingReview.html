@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+<div th:replace="common/header :: navbar" />
+
+<div class="container">
+
+        <h3>Pending Review Accounts</h3>
+        <hr>
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Seller</th>
+                <th>Product</th>
+                <th>Buyer</th>
+                <th>Descriptiom</th>
+                <th>Accept</th>
+                <th>Reject</th>
+            </tr>
+            </thead>
+
+            <tbody id="tbody_review">
+            <tr th:id="${review.id}+'tr'" th:each="review : ${pendingReviews}">
+
+                <td th:text="${review?.sellerid}" />
+                <td th:text="${review?.productid}" />
+                <td th:text="${review?.userid}" />
+                <td th:text="${review?.description}"></td>
+                <!-- Add update button/link -->
+                <td>
+                    <button th:id="${review.id}" type="button" class="btn btn-success btn_accept">APPROVED</button>
+                </td><td>
+                    <button th:id="${review.id}+'reject'"type="button" class="btn btn-danger btn_reject">REJECTED</button>
+            </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+</div>
+<!-- end of container -->
+
+<div th:replace="common/header :: footer"/>
+<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>
+
+
+

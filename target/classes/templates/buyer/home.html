@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div class="row" style="margin-bottom: -100px;">
+			<div class="col-xs-8">
+				<h2 class="section-headline">
+					<h2 class="section-headline">
+						<span
+							th:text="${user}? ${#strings.toUpperCase(user.firstName)} : 'All Products'"></span>
+					</h2>
+				</h2>
+			</div>
+
+		</div>
+
+
+		<div class="row" style="margin-top: 60px;">
+			
+			<div class="col-xs-9">
+
+				<div class="hover_bkgr_fricc">
+					<span class="helper"></span>
+
+				</div>
+				<div th:if="${emptyList}">
+					<h5 style="font-style: italic;">Oops, no result is found. Try
+						something else or try again later.</h5>
+				</div>
+
+				<table border="0" id="productList">
+					<thead>
+						<tr>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="book-item" data-th-each="product : ${productList}" >
+							<td>
+								<div th:if="${product != null}">
+									<div class="row" style="margin-bottom: 50px;">
+										<div class="col-xs-3">
+											<a th:href="@{'/product/'+${product.id}}"><img class="img-responsive"   th:src="@{'/'+${product.id } + '.png'}"  /></a>
+										</div>
+										<div class="col-xs-9" >
+											<a th:href="@{'/product/'+${product.id}}"><h4
+													th:text="${product.name}"></h4></a>
+											<a th:href="@{'/product/'+${product.id}}"><span
+												style="font-size: x-large; color: #db3208;">$<span
+													th:text="${#numbers.formatDecimal(product.discountPrice, 0 , 'COMMA', 2, 'POINT')}"></span></span></a>
+
+											<span style="text-decoration: line-through;">$<span
+												th:text="${#numbers.formatDecimal(product.unitPrice, 0 , 'COMMA', 2, 'POINT')}"></span></span>
+
+											<p th:utext="${#strings.abbreviate(product.description, 1000)}"></p>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- end of container -->
+
+<!--	<div id="banner_l" class="banner"><a target="_blank" href="http://google.com.vn">banner left</a></div>-->
+	<div id="banner_r" class="banner"><a target="_blank" href="https://www.apple.com">banner right</a></div>
+
+<div th:replace="common/header :: footer"/>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+	
+</body>
+</html>
